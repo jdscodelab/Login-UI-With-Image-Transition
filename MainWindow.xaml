@@ -1,0 +1,177 @@
+﻿<Window x:Class="LoginUIWithImageTransitions.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:LoginUIWithImageTransitions"
+        mc:Ignorable="d"
+        Title="Login UI With Image Transition" Height="600" Width="1024"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/assets/icons.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+
+            <BitmapImage x:Key="Image1" UriSource="/Assets/1.jpg"/>
+            <BitmapImage x:Key="Image2" UriSource="/Assets/2.jpg"/>
+            <BitmapImage x:Key="Image3" UriSource="/Assets/3.jpg"/>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="600"/> <!--Image transition-->
+            <ColumnDefinition/> <!--Login & Password Section-->
+        </Grid.ColumnDefinitions>
+
+        <StackPanel
+            Grid.Column="1"
+            Margin="50">
+            
+            <!--Profile picture-->
+            <Ellipse
+                Width="100"
+                Height="100"
+                HorizontalAlignment="Center">
+                <Ellipse.Fill>
+                    <ImageBrush
+                        Stretch="UniformToFill"
+                        ImageSource="Assets/profile.jpg"/>
+                </Ellipse.Fill>
+            </Ellipse>
+            
+            <!--Sign Up-->
+            <TextBlock
+                Margin="0,30,0,0">
+                Need an account? <Hyperlink TextDecorations="None">SignUp</Hyperlink>
+            </TextBlock>
+            
+            <!--Email & Password Text Box-->
+            <Border
+                Height="50"
+                BorderBrush="Silver"
+                BorderThickness="2"
+                CornerRadius="4"
+                Margin="0,10">
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="50"/> <!--For Icon-->
+                        <ColumnDefinition/> <!--For Email-->
+                    </Grid.ColumnDefinitions>
+                    
+                    <!--Icon-->
+                    <Path
+                        Width="25"
+                        Height="25"
+                        Data="{StaticResource mail_icon}"
+                        Fill="Silver"/>
+                    
+                    <!--Email Textbox-->
+                    <TextBox
+                        BorderThickness="0"
+                        Foreground="Silver"
+                        Grid.Column="1"
+                        Text="Email"
+                        VerticalAlignment="Center"
+                        FontWeight="SemiBold"/>
+                </Grid>
+            </Border>
+            <Border
+                Height="50"
+                BorderBrush="Silver"
+                BorderThickness="2"
+                CornerRadius="4"
+                Margin="0,0,0,20">
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="50"/>
+                        <!--For Icon-->
+                        <ColumnDefinition/>
+                        <!--For Email-->
+                    </Grid.ColumnDefinitions>
+
+                    <!--Icon-->
+                    <Path
+                        Width="25"
+                        Height="25"
+                        Data="{StaticResource pass_icon}"
+                        Fill="Silver"/>
+
+                    <!--Password Textbox-->
+                    <PasswordBox
+                        BorderThickness="0"
+                        Foreground="Silver"
+                        Grid.Column="1"
+                        Password="Password"
+                        VerticalAlignment="Center"
+                        FontWeight="SemiBold"/>
+                </Grid>
+            </Border>
+
+            <!--Login Button-->
+            <Button
+                Background="MidnightBlue"
+                BorderThickness="0"
+                Content="Log In"
+                Foreground="White"
+                Height="50"/>
+        </StackPanel>
+        
+        <!--Forgot your password hyperlink-->
+        <TextBlock
+            Grid.Column="1"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Bottom"
+            Margin="0,20">
+            <Hyperlink
+                TextDecorations="None">
+                Forgot your password?
+            </Hyperlink>
+        </TextBlock>
+        
+        <!--Image Transition-->
+        <Image
+            Source="{StaticResource Image1}"
+            Stretch="UniformToFill">
+            <Image.Triggers>
+                <EventTrigger RoutedEvent="Loaded">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            
+                            <!--FadeOut-->
+                            <DoubleAnimation
+                                Storyboard.TargetProperty="Opacity"
+                                SpeedRatio=".5"
+                                From="1"
+                                To=".5"
+                                RepeatBehavior="Forever"/>
+
+                            <!--FadeIn-->
+                            <DoubleAnimation
+                                Storyboard.TargetProperty="Opacity"
+                                SpeedRatio=".5"
+                                From=".5"
+                                To="1"
+                                RepeatBehavior="Forever"/>
+
+                            <ObjectAnimationUsingKeyFrames
+                                Storyboard.TargetProperty="Source"
+                                Duration="0:0:6"
+                                RepeatBehavior="Forever">
+                                <DiscreteObjectKeyFrame
+                                    Value="{StaticResource Image2}"
+                                    KeyTime="0:0:2"/>
+                                <DiscreteObjectKeyFrame
+                                    Value="{StaticResource Image3}"
+                                    KeyTime="0:0:4"/>
+                            </ObjectAnimationUsingKeyFrames>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+            </Image.Triggers>
+        </Image>
+    </Grid>
+</Window>
